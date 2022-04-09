@@ -368,24 +368,16 @@ Display all parking in json format
     {"id":"40288182800cc09701800cc68db60002","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Kosong Dikit","address":"Sudirman","size":15.25,"capacity":50,"category":"All"}],
     "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
 
-## Get Parking using Parameter
-Parking accept 5 search parameter both individually or collectivelly used in a search
+## Get All Data with Timespent for each vehicle
 
-    ?name=xxxx
-    ?address=xxxx
-    ?capacityBottomLimit=10
-    ?capacityTopLimit=200
-    ?category=Car/Bike/All
+### Request
+
+`GET /{parkingLotId}/all/time_spent`
 
 It also accepts page and size
 
     ?page=1&size=5
 
-
-if both capacityBottomLimit and capacityTopLimit are used, it will show all products with capacity between lower and top limit number
-### Request
-
-`GET /parking?name=ja&address=se&capacityBottomLimit=20&capacityTopLimit=200&category=Car`
 
 ### Response
 Display all parking in json format
