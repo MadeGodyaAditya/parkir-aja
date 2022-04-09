@@ -18,17 +18,25 @@ public class Report {
     @GenericGenerator(name = "report_id_generator", strategy="uuid")
     private String id;
 
-    @NotNull
     private String parkingLotId;
-    @NotNull
     private String licensePlate;
     private Timestamp entrance;
     private Timestamp exit;
-    private Double timeSpent;
+    private Long timeSpent;
     private Integer fee;
     private Integer totalFee;
 
     public Report() {
+    }
+
+    public Report(String parkingLotId, String licensePlate, Timestamp entrance, Timestamp exit, Long timeSpent, Integer fee, Integer totalFee) {
+        this.parkingLotId = parkingLotId;
+        this.licensePlate = licensePlate;
+        this.entrance = entrance;
+        this.exit = exit;
+        this.timeSpent = timeSpent;
+        this.fee = fee;
+        this.totalFee = totalFee;
     }
 
     public String getId() {
@@ -51,7 +59,7 @@ public class Report {
         return exit;
     }
 
-    public Double getTimeSpent() {
+    public Long getTimeSpent() {
         return timeSpent;
     }
 
@@ -62,4 +70,6 @@ public class Report {
     public Integer getTotalFee() {
         return totalFee;
     }
+
+
 }

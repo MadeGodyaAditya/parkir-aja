@@ -390,22 +390,26 @@ Display all vehicle parked in certain parking lot in json format
     {"content":{"id":"40288182800d59aa01800d78238e0002","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 6532 JXL","type":"Bike","entrance":"2022-04-09T08:36:58.893+00:00"},
     "timeSpent":"1 Jam, 0 Menit, 18 Detik."}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
 
-## Get Bill Detail For Vehicle
+## Get Bill Detail For Parked Vehicle by id
 
 ### Request
 
-`GET /parking/{parkingId}/bill`
+`GET /parking/{id}/bill`
 
 ### Response
-Display information of vehicle and bill in json format
+Display information of vehicle and it's bill in json format
 
-    {"content":
-    [{"content":{"id":"40288182800d59aa01800d5a7e130000","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"F 3212 JL","type":"Bike","entrance":"2022-04-09T08:04:35.945+00:00"},
-    "timeSpent":"1 Jam, 32 Menit, 41 Detik."},
-    {"content":{"id":"40288182800d59aa01800d7803b50001","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 1102 JL","type":"Bike","entrance":"2022-04-09T08:36:50.739+00:00"},
-    "timeSpent":"1 Jam, 0 Menit, 26 Detik."},
-    {"content":{"id":"40288182800d59aa01800d78238e0002","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 6532 JXL","type":"Bike","entrance":"2022-04-09T08:36:58.893+00:00"},
-    "timeSpent":"1 Jam, 0 Menit, 18 Detik."}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
+    {
+    "t": {
+        "id": "40288182800d59aa01800d5a7e130000",
+        "parkingLotId": "40288182800cc09701800cc615cf0001",
+        "licensePlate": "F 3212 JL",
+        "type": "Bike",
+        "entrance": "2022-04-09T08:04:35.945+00:00"
+    },
+    "exitTime": "2022-04-09T12:37:30.043+00:00",
+    "price": 10000
+    }
 
 
 ## Register New Parking
@@ -437,11 +441,11 @@ RequestBody as JSON:
     "entrance": "2022-04-09T08:04:35.945+00:00"
     }
 
-## Delete Parking Data
+## Vehicle Exit from Parking Lot
 
 ### Request
 
-`DELETE /product?id=402881837ffa2134017ffa227bd70000`
+`DELETE /parking?id=402881837ffa2134017ffa227bd70000`
 
 
 ### Response
@@ -449,6 +453,18 @@ RequestBody as JSON:
     HTTP/1.1 200 OK
     Status: 200 OK
     Connection: close
+    Content-Type: application/json
+
+    {
+    "id": "40288182800e540701800e5681460000",
+    "parkingLotId": "40288182800cc09701800cc615cf0001",
+    "licensePlate": "B 6532 JXL",
+    "entrance": "2022-04-09T08:36:58.893+00:00",
+    "exit": "2022-04-09T12:39:51.733+00:00",
+    "timeSpent": 242,
+    "fee": 2000,
+    "totalFee": 10000
+    }
 
 
 ## Update or Delete a non-existent Data

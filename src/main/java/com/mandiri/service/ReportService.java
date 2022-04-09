@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReportService implements CreateReadService<Report, String>, UpdateService<Report>, DeleteService<String> {
+public class ReportService implements CreateReadService<Report, String> {
 
     @Autowired
     ReportRepository reportRepository;
@@ -29,20 +29,6 @@ public class ReportService implements CreateReadService<Report, String>, UpdateS
         checkId(s);
 
         return reportRepository.findById(s).get();
-    }
-
-    @Override
-    public Report update(Report report) {
-        checkId(report.getId());
-
-        return reportRepository.save(report);
-    }
-
-    @Override
-    public void delete(String s) {
-        checkId(s);
-
-        reportRepository.deleteById(s);
     }
 
 }

@@ -4,6 +4,7 @@ import com.mandiri.dto.BillContent;
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.TimeSpentContent;
 import com.mandiri.entity.Parking;
+import com.mandiri.entity.Report;
 import com.mandiri.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
-public class ParkingController implements CreateReadController<Parking, String>, DeleteController<String>{
+public class ParkingController implements CreateReadController<Parking, String>{
     @Autowired
     ParkingService parkingService;
 
@@ -37,13 +38,13 @@ public class ParkingController implements CreateReadController<Parking, String>,
         return parkingService.getTimeSpent(parkingLotId, pageable);
     }
 
-    @GetMapping("/{parkingId}/bill")
-    public BillContent<Parking> getBill(@PathVariable String parkingId){
-        return parkingService.getBill(parkingId);
+    @GetMapping("/{id}/bill")
+    public BillContent<Parking> getBill(@PathVariable String id){
+        return parkingService.getBill(id);
     }
 
-    @Override
-    public void delete(String id) {
-        parkingService.delete(id);
+    @DeleteMapping()
+    public Report exitParking(@RequestParam String id){
+        return parkingService.exitParking(id);
     }
 }

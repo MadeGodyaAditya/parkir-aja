@@ -6,9 +6,9 @@ import com.mandiri.dto.TimeSpentContent;
 import com.mandiri.entity.Fee;
 import com.mandiri.entity.Parking;
 import com.mandiri.entity.ParkingLot;
+import com.mandiri.entity.Report;
 import com.mandiri.library.CustomException;
 import com.mandiri.repository.ParkingRepository;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ParkingService implements CreateReadService<Parking, String>, DeleteService<String> {
+public class ParkingService implements CreateReadService<Parking, String> {
 
     @Autowired
     ParkingRepository parkingRepository;
@@ -32,6 +32,8 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
     ParkingLotService parkingLotService;
     @Autowired
     FeeService feeService;
+    @Autowired
+    ReportService reportService;
 
     @Override
     public void checkId(String s) {
@@ -51,6 +53,11 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
             }
         }
     }
+    private void checkDuplicateLicensePlate(Parking parking) {
+        if (parkingRepository.findByLicensePlate(parking.getLicensePlate()) != null){
+            CustomException.throwDuplicateValue(parking.getLicensePlate(), "Parking Lot");
+        }
+    }
 
     @Override
     @Transactional
@@ -58,11 +65,7 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
         ParkingLot parkingLot = parkingLotService.findById(parking.getParkingLotId());
         checkParkingAvailability(parkingLot);
         checkParentValue(parking, parkingLot);
-
-        if (parkingRepository.findByLicensePlate(parking.getLicensePlate()) != null){
-            CustomException.throwDuplicateValue(parking.getLicensePlate(), "Parking Lot");
-
-        }
+        checkDuplicateLicensePlate(parking);
 
         Timestamp transactionTime = new Timestamp(System.currentTimeMillis());
         parking.setEntrance(transactionTime);
@@ -116,11 +119,24 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
         return new BillContent<Parking>(parking, new Timestamp(System.currentTimeMillis()), totalFee);
     }
 
-    @Override
-    public void delete(String s) {
-        checkId(s);
+    @Transactional
+    public Report exitParking(String id){
+        BillContent<Parking> billContent = getBill(id);
+        Fee fee = feeService.findByParkingLotIdAndCategory(billContent.getT().getParkingLotId(), billContent.getT().getType());
+        long diff = System.currentTimeMillis() - (billContent.getT().getEntrance().getTime());
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
 
-        parkingRepository.deleteById(s);
+        Report report = new Report(
+                billContent.getT().getParkingLotId(),
+                billContent.getT().getLicensePlate(),
+                billContent.getT().getEntrance(),
+                billContent.getExitTime(),
+                minutes,
+                fee.getFee(),
+                billContent.getPrice()
+        );
+        parkingRepository.deleteById(id);
+        return reportService.register(report);
     }
 
 }
