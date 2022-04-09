@@ -2,6 +2,8 @@ package com.mandiri.service;
 
 import com.mandiri.entity.Parking;
 import com.mandiri.library.CustomException;
+import com.mandiri.repository.FeeRepository;
+import com.mandiri.repository.ParkingLotRepository;
 import com.mandiri.repository.ParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,10 @@ public class ParkingService implements CreateReadService<Parking, String>, Updat
 
     @Autowired
     ParkingRepository parkingRepository;
+    @Autowired
+    ParkingLotService parkingLotService;
+    @Autowired
+    FeeService feeService;
 
     @Override
     public void checkId(String s) {
@@ -21,6 +27,8 @@ public class ParkingService implements CreateReadService<Parking, String>, Updat
 
     @Override
     public Parking register(Parking parking) {
+        parkingLotService.checkId(parking.getId());
+
         return parkingRepository.save(parking);
     }
 
