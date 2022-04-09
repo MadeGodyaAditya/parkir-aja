@@ -21,4 +21,9 @@ public class CustomException{
         throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, message);
     }
 
+    public static void throwDuplicateValue(String value, String tableName){
+        String message = String.format(ResponseMessage.DUPLICATE_VALUE, value, tableName);
+        throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, message);
+    }
+
 }

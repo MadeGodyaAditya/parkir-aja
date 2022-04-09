@@ -20,6 +20,7 @@ import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -43,12 +44,25 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
             CustomException.throwItemEmpty(this.getClass().getSimpleName());
         }
     }
+    private void checkParentValue(Parking parking, ParkingLot parkingLot) {
+        if(!Objects.equals(parkingLot.getCategory(), "All")){
+            if(!Objects.equals(parking.getType(), parkingLot.getCategory())){
+                CustomException.throwNotAcceptable("Category", parking.getType());
+            }
+        }
+    }
 
     @Override
     @Transactional
     public Parking register(Parking parking) {
         ParkingLot parkingLot = parkingLotService.findById(parking.getParkingLotId());
         checkParkingAvailability(parkingLot);
+        checkParentValue(parking, parkingLot);
+
+        if (parkingRepository.findByLicensePlate(parking.getLicensePlate()) != null){
+            CustomException.throwDuplicateValue(parking.getLicensePlate(), "Parking Lot");
+
+        }
 
         Timestamp transactionTime = new Timestamp(System.currentTimeMillis());
         parking.setEntrance(transactionTime);
