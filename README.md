@@ -162,7 +162,30 @@ Display all parking lot in json format
     {"id":"40288182800cc09701800cc68db60002","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Kosong Dikit","address":"Sudirman","size":15.25,"capacity":50,"category":"All"}],
     "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
 
-## Get Parking Lot using Parameter
+## Get Parking Lot Information and Parked Vehicle inside
+
+### Request
+
+`GET /parking_lot/{id}/occupied`
+
+### Response
+Display information about parking lot and number of vehicle parked in the parking lot in json format
+
+    {
+    "parkingLot": {
+        "id": "40288182800cc09701800cc615cf0001",
+        "ownerId": "40288182800c21bf01800c28452c0000",
+        "name": "Parkir Penuh Terus",
+        "address": "Senayan",
+        "size": 20.25,
+        "capacity": 97,
+        "category": "Bike"
+    },
+    "parkedVehicle": 2
+    }
+
+
+## Search Parking Lot using Parameter
 Parking Lot accept 5 search parameter both individually or collectivelly used in a search
 
     ?name=xxxx

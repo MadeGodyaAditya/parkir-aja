@@ -2,7 +2,9 @@ package com.mandiri.controller;
 
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.ParkingLotSearchForm;
+import com.mandiri.dto.ParkingLotWithVehicle;
 import com.mandiri.entity.ParkingLot;
+import com.mandiri.service.ParkingLotParkingCrossService;
 import com.mandiri.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class ParkingLotController implements CreateReadController<ParkingLot, String>, UpdateController<ParkingLot>, DeleteController<String> {
     @Autowired
     ParkingLotService parkingLotService;
+    @Autowired
+    ParkingLotParkingCrossService parkingLotParkingCrossService;
 
     @Override
     public ParkingLot register(ParkingLot parkingLot) {
@@ -43,9 +47,9 @@ public class ParkingLotController implements CreateReadController<ParkingLot, St
 
     }
 
-    @GetMapping("/{id}/filled")
-    public ParkingLot getFilled(@PathVariable String id) {
-        return  parkingLotService.getFilled(id);
+    @GetMapping("/{id}/vehicle_list")
+    public ParkingLotWithVehicle getParkingLotVehicle(@PathVariable String id) {
+        return  parkingLotParkingCrossService.parkingLotWithVehicle(id);
     }
 
     @Override

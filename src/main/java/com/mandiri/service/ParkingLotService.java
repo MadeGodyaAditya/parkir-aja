@@ -47,10 +47,6 @@ public class ParkingLotService implements CreateReadService<ParkingLot, String>,
         return new CustomPage<ParkingLot>(pageData);
     }
 
-    public ParkingLot getFilled(String id){
-        return null;
-    }
-
     @Override
     public ParkingLot update(ParkingLot parkingLot) {
         checkId(parkingLot.getId());

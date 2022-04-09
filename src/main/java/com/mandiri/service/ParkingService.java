@@ -82,6 +82,10 @@ public class ParkingService implements CreateReadService<Parking, String> {
         return parkingRepository.findById(s).get();
     }
 
+    public List<Parking> findByParkingLot(String s){
+        return parkingRepository.findByParkingLotId(s);
+    }
+
     public CustomPage<TimeSpentContent<Parking>> getTimeSpent(String id, Pageable pageable){
         List<Parking> parkingList = parkingRepository.findByParkingLotId(id);
         if (parkingList == null){
