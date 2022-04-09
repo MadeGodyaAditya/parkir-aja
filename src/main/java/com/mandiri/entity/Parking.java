@@ -24,7 +24,6 @@ public class Parking {
     private String licensePlate;
     @NotNull
     private String type;
-    @NotNull
     private Timestamp entrance;
 
     public Parking() {
@@ -48,5 +47,9 @@ public class Parking {
 
     public Timestamp getEntrance() {
         return entrance;
+    }
+
+    public void setEntrance(Timestamp entrance) {
+        this.entrance = entrance;
     }
 }

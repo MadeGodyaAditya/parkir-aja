@@ -22,15 +22,10 @@ public class Report {
     private String parkingLotId;
     @NotNull
     private String licensePlate;
-    @NotNull
     private Timestamp entrance;
-    @NotNull
     private Timestamp exit;
-    @NotNull
     private Double timeSpent;
-    @NotNull
     private Integer fee;
-    @NotNull
     private Integer totalFee;
 
     public Report() {

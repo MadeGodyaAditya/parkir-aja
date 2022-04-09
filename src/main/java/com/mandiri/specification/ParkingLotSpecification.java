@@ -39,7 +39,7 @@ public class ParkingLotSpecification implements Specification<ParkingLot>, Predi
             predicates.add(lessThanEqualIntPredicate(criteriaBuilder, root, "capacity", parkingLotSearchForm.getCapacityTopLimit()));
         }
         if (parkingLotSearchForm.getCategory()!=null){
-            predicates.add(containsPredicate(criteriaBuilder, root, "category", parkingLotSearchForm.getAddress()));
+            predicates.add(containsPredicate(criteriaBuilder, root, "category", parkingLotSearchForm.getCategory()));
         }
 //        if (parkingLotSearchForm.getFeeBottomLimit()!=null){
 //            predicates.add(greaterThanEqualIntPredicate(criteriaBuilder, root, "size", parkingLotSearchForm.getFeeBottomLimit()));

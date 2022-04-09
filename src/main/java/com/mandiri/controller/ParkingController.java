@@ -8,23 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/parking")
-public class ParkingController implements CreateReadController<Parking, String>, UpdateController<Parking>, DeleteController<String>{
+public class ParkingController implements CreateReadController<Parking, String>, DeleteController<String>{
     @Autowired
     ParkingService parkingService;
 
     @Override
     public Parking register(Parking parking) {
-        //return parkingService.register(parking);
+        return parkingService.register(parking);
     }
 
     @Override
     public Parking findById(String id) {
         return parkingService.findById(id);
-    }
-
-    @Override
-    public Parking update(Parking parking) {
-        return parkingService.update(parking);
     }
 
     @Override

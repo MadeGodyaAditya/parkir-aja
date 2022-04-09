@@ -65,4 +65,8 @@ public class ParkingLot {
     public String getCategory() {
         return category;
     }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 }

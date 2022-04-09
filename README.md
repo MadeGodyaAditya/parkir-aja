@@ -154,32 +154,32 @@ RequestBody as JSON:
 `GET /parking_lot`
 
 ### Response
-Display all product in json format
+Display all parking lot in json format
 
-    [{"id":"8a63394f7ff95aae017ff95ac61a0000","productName":"Biskuit Mari","description":"Biskuit","price":20000,"stock":2,"storeId":"8a63394f7ff7de6b017ff7dec0b80000"},
-    {"id":"402881837ffa1e97017ffa1f66350000","productName":"Biskuit Roma Kelapa","description":"Biskuit","price":17000,"stock":6,"storeId":"8a63394f7ff7de6b017ff7df8fcb0001"},
-    {"id":"402881837ffa1e97017ffa203d140001","productName":"Sari Roti","description":"Roti","price":3000,"stock":16,"storeId":"8a63394f7ff7de6b017ff7df8fcb0001"},
-    {"id":"402881837ffa1e97017ffa20c8ac0002","productName":"Roti Sobek Rasa Kopyor","description":"Roti","price":2500,"stock":21,"storeId":"8a63394f7ff7de6b017ff7df8fcb0001"}]
+    {"content":
+    [{"id":"40288182800cc09701800cc4dc8d0000","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Jaya Abadi","address":"Senayan","size":20.25,"capacity":100,"category":"Car"},
+    {"id":"40288182800cc09701800cc615cf0001","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Penuh Terus","address":"Senayan","size":20.25,"capacity":100,"category":"Bike"},
+    {"id":"40288182800cc09701800cc68db60002","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Kosong Dikit","address":"Sudirman","size":15.25,"capacity":50,"category":"All"}],
+    "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
 
-## Get Product using Parameter
-Product accept 3 search parameter both individually or collectivelly used in a search
+## Get Parking Lot using Parameter
+Parking Lot accept 5 search parameter both individually or collectivelly used in a search
 
-    ?productName=xxxx
-    ?priceMin=2000
-    ?priceMax=7000
+    ?name=xxxx
+    ?address=xxxx
+    ?capacityBottomLimit=10
+    ?capacityTopLimit=200
+    ?category=Car/Bike/All
 
 It also accepts page and size
 
     ?page=1&size=5
 
-priceMin is the lower limit of the prices, while priceMax is the upper limit of prices. For example:
 
-    ?priceMin=2000
-
-if priceMax is null, it will show all products with price above 2000
+if both capacityBottomLimit and capacityTopLimit are used, it will show all products with capacity between lower and top limit number
 ### Request
 
-`GET /parking_lot?productName=ro&priceMin=3000&priceMax=5000`
+`GET /parking_lot?name=ja&address=se&capacityBottomLimit=20&capacityTopLimit=200&category=Car`
 
 ### Response
 Display all products in json format
@@ -187,12 +187,13 @@ Display all products in json format
     {
     "content": [
         {
-            "id": "402881837ffa1e97017ffa203d140001",
-            "productName": "Sari Roti",
-            "description": "Roti",
-            "price": 3000,
-            "stock": 16,
-            "storeId": "8a63394f7ff7de6b017ff7df8fcb0001"
+            "id": "40288182800cc09701800cc4dc8d0000",
+            "ownerId": "40288182800c21bf01800c28452c0000",
+            "name": "Parkir Jaya Abadi",
+            "address": "Senayan",
+            "size": 20.25,
+            "capacity": 100,
+            "category": "Car"
         }
     ],
     "pageNumber": 0,
@@ -282,21 +283,6 @@ RequestBody as JSON:
     Connection: close
 
 ## 3. Fee
-## Get Fee Data
-
-### Request
-
-`GET /fee/`
-
-### Response
-Display fee by ID in json format
-
-    {"content":[{"id":"8a6333877ffe5986017ffe599a480000","fullName":"I Made Godya Aditya","username":"godyaaditya123","birthDate":"1996-04-11T17:00:00.000+00:00","phoneNumber":"081387308472","email":"godyaaditya@gmail.com","gender":"M"},
-    {"id":"402881837ffed5f8017ffed622c00000","fullName":"Bambang Sibambang","username":"bambang_ok","birthDate":"1987-01-16T17:00:00.000+00:00","phoneNumber":"0812920219123","email":"sibambangbambang@gmail.com","gender":"M"},
-    {"id":"402881837ffeeb98017ffeec61a00000","fullName":"La Elson","username":"elson_spasial","birthDate":"1962-11-18T17:00:00.000+00:00","phoneNumber":"0888030101256","email":"la_elson123@gmail.com","gender":"M"},
-    {"id":"402881837ffeeb98017ffeed581b0001","fullName":"Febiola Ola","username":"febiola_kesekretariatan","birthDate":"2001-05-22T17:00:00.000+00:00","phoneNumber":"081393111517","email":"ola_ola921@gmail.com","gender":"F"},
-    {"id":"402881837ffeeb98017ffeee53900002","fullName":"Rizki Utami","username":"rbu_123_ok","birthDate":"1987-10-22T17:00:00.000+00:00","phoneNumber":"088710239113","email":"rbu_kesekretarian_ddp@gmail.com","gender":"F"}],
-    "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":5}
 
 ## Register New Fee
 
@@ -326,7 +312,7 @@ RequestBody as JSON:
     "fee": 5000
     }
 
-## Change Customer Data
+## Change Fee Data
 
 ### Request
 
@@ -353,7 +339,7 @@ RequestBody as JSON:
     "fee": 5500
     }
 
-## Delete Customer Data
+## Delete Fee Data
 
 ### Request
 
@@ -365,6 +351,105 @@ RequestBody as JSON:
     HTTP/1.1 200 OK
     Status: 200 OK
     Connection: close
+
+## 4. Parking
+## Get all Parking
+
+### Request
+
+`GET /parking`
+
+### Response
+Display all parking in json format
+
+    {"content":
+    [{"id":"40288182800cc09701800cc4dc8d0000","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Jaya Abadi","address":"Senayan","size":20.25,"capacity":100,"category":"Car"},
+    {"id":"40288182800cc09701800cc615cf0001","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Penuh Terus","address":"Senayan","size":20.25,"capacity":100,"category":"Bike"},
+    {"id":"40288182800cc09701800cc68db60002","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Kosong Dikit","address":"Sudirman","size":15.25,"capacity":50,"category":"All"}],
+    "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
+
+## Get Parking using Parameter
+Parking accept 5 search parameter both individually or collectivelly used in a search
+
+    ?name=xxxx
+    ?address=xxxx
+    ?capacityBottomLimit=10
+    ?capacityTopLimit=200
+    ?category=Car/Bike/All
+
+It also accepts page and size
+
+    ?page=1&size=5
+
+
+if both capacityBottomLimit and capacityTopLimit are used, it will show all products with capacity between lower and top limit number
+### Request
+
+`GET /parking?name=ja&address=se&capacityBottomLimit=20&capacityTopLimit=200&category=Car`
+
+### Response
+Display all parking in json format
+
+    {
+    "content": [
+        {
+            "id": "40288182800cc09701800cc4dc8d0000",
+            "ownerId": "40288182800c21bf01800c28452c0000",
+            "name": "Parkir Jaya Abadi",
+            "address": "Senayan",
+            "size": 20.25,
+            "capacity": 100,
+            "category": "Car"
+        }
+    ],
+    "pageNumber": 0,
+    "pageSize": 5,
+    "totalPages": 1,
+    "totalElement": 1
+    }
+
+## Register New Parking
+
+### Request
+
+`POST /parking`
+
+RequestBody as JSON:
+
+    {
+    "parkingLotId":"40288182800cc09701800cc615cf0001",
+    "licensePlate":"F 3212 JL",
+    "type":"Bike"
+    }
+
+### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    {
+    "id": "40288182800d59aa01800d5a7e130000",
+    "parkingLotId": "40288182800cc09701800cc615cf0001",
+    "licensePlate": "F 3212 JL",
+    "type": "Bike",
+    "entrance": "2022-04-09T08:04:35.945+00:00"
+    }
+
+## Delete Parking Lot Data
+
+### Request
+
+`DELETE /product?id=402881837ffa2134017ffa227bd70000`
+
+
+### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+
 
 ## Update or Delete a non-existent Data
 
