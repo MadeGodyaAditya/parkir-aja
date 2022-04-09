@@ -489,8 +489,37 @@ RequestBody as JSON:
     "totalFee": 10000
     }
 
+## 5. Parking Report
+## Get all Parking
 
-## Update or Delete a non-existent Data
+### Request
+
+`GET /report`
+
+### Response
+Display all parking report in json format
+
+    {
+    "content": [
+        {
+            "id": "40288182800e540701800e5681460000",
+            "parkingLotId": "40288182800cc09701800cc615cf0001",
+            "licensePlate": "B 6532 JXL",
+            "entrance": "2022-04-09T08:36:58.893+00:00",
+            "exit": "2022-04-09T12:39:51.733+00:00",
+            "timeSpent": 242,
+            "fee": 2000,
+            "totalFee": 10000
+        }
+    ],
+    "pageNumber": 0,
+    "pageSize": 5,
+    "totalPages": 1,
+    "totalElement": 1
+    }
+
+
+## 999. Update or Delete a non-existent Data
 
 ### Request
 
