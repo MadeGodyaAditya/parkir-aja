@@ -130,12 +130,12 @@ RequestBody as JSON:
     Status: 200 OK
     Connection: close
 
-## 2. Product
-## Get all Product
+## 2. Parking Lot
+## Get all Parking Lot
 
 ### Request
 
-`GET /product`
+`GET /parking_lot`
 
 ### Response
 Display all product in json format
@@ -163,7 +163,7 @@ priceMin is the lower limit of the prices, while priceMax is the upper limit of 
 if priceMax is null, it will show all products with price above 2000
 ### Request
 
-`GET /product?productName=ro&priceMin=3000&priceMax=5000`
+`GET /parking_lot?productName=ro&priceMin=3000&priceMax=5000`
 
 ### Response
 Display all products in json format
@@ -185,20 +185,20 @@ Display all products in json format
     "totalElement": 1
     }
 
-## Register New Product
+## Register New Parking Lot
 
 ### Request
 
-`POST /product`
+`POST /parking_lot`
 
 RequestBody as JSON:
 
     {
-    "productName":"Roti Sobek Rasa Kopyor",
-    "description":"Roti",
-    "price":2500,
-    "stock":21,
-    "storeId":"8a63394f7ff7de6b017ff7df8fcb0001"
+    "ownerId":"40288182800c21bf01800c28452c0000",
+    "name":"Parkir Kosong Dikit",
+    "address":"Sudirman",
+    "size":"15.25",
+    "capacity":"50"
     }
 
 ### Response
@@ -209,27 +209,27 @@ RequestBody as JSON:
     Content-Type: application/json
 
     {
-    "id": "402881837ffa2134017ffa227bd70000",
-    "productName": "Roti Sobek Rasa Kopyor",
-    "description": "Roti",
-    "price": 2500,
-    "stock": 21,
-    "storeId": "8a63394f7ff7de6b017ff7df8fcb0001"
+    "id": "40288182800cc09701800cc68db60002",
+    "ownerId": "40288182800c21bf01800c28452c0000",
+    "name": "Parkir Kosong Dikit",
+    "address": "Sudirman",
+    "size": 15.25,
+    "capacity": 50
     }
 
-## Change Product Data
+## Change Parking Lot Data
 
 ### Request
 
-`PUT /product`
+`PUT /parking_lot`
 
     {
-    "id":"402881837ffa2134017ffa227bd70000"
-    "productName": "Roti Sobek Rasa Coklat",
-    "description": "Roti",
-    "price": 2500,
-    "stock": 21,
-    "storeId": "8a63394f7ff7de6b017ff7df8fcb0001"
+    "id": "40288182800cc09701800ccb6c510003",
+    "ownerId":"40288182800c21bf01800c28452c0000",
+    "name":"Update parkiran",
+    "address":"Sudirman",
+    "size":"10.00",
+    "capacity":"55"
     }
 
 ### Response
@@ -240,15 +240,15 @@ RequestBody as JSON:
     Content-Type: application/json
 
     {
-    "id": "402881837ffa2134017ffa227bd70000",
-    "productName": "Roti Sobek Rasa Coklat",
-    "description": "Roti",
-    "price": 2500,
-    "stock": 21,
-    "storeId": "8a63394f7ff7de6b017ff7df8fcb0001"
+    "id": "40288182800cc09701800ccb6c510003",
+    "ownerId":"40288182800c21bf01800c28452c0000",
+    "name":"Update parkiran",
+    "address":"Sudirman",
+    "size":"10.00",
+    "capacity":"55"
     }
 
-## Delete Product Data
+## Delete Parking Lot Data
 
 ### Request
 
