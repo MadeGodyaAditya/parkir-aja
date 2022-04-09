@@ -1,5 +1,6 @@
 package com.mandiri.controller;
 
+import com.mandiri.dto.BillContent;
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.TimeSpentContent;
 import com.mandiri.entity.Parking;
@@ -34,6 +35,11 @@ public class ParkingController implements CreateReadController<Parking, String>,
             @RequestParam(defaultValue = "5") Integer size){
         Pageable pageable = PageRequest.of(page, size);
         return parkingService.getTimeSpent(parkingLotId, pageable);
+    }
+
+    @GetMapping("/{parkingId}/bill")
+    public BillContent<Parking> getBill(@PathVariable String parkingId){
+        return parkingService.getBill(parkingId);
     }
 
     @Override

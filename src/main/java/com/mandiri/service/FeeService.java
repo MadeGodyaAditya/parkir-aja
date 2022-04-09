@@ -45,6 +45,10 @@ public class FeeService implements CreateReadService<Fee, String>, UpdateService
         return feeRepository.findById(s).get();
     }
 
+    public Fee findByParkingLotIdAndCategory(String id, String category){
+        return feeRepository.findByParkingLotIdAndCategory(id, category);
+    }
+
     @Override
     public Fee update(Fee fee) {
         checkId(fee.getId());

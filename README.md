@@ -273,7 +273,7 @@ RequestBody as JSON:
 
 ### Request
 
-`DELETE /product?id=402881837ffa2134017ffa227bd70000`
+`DELETE /parking_lot?id=402881837ffa2134017ffa227bd70000`
 
 
 ### Response
@@ -368,11 +368,11 @@ Display all parking in json format
     {"id":"40288182800cc09701800cc68db60002","ownerId":"40288182800c21bf01800c28452c0000","name":"Parkir Kosong Dikit","address":"Sudirman","size":15.25,"capacity":50,"category":"All"}],
     "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
 
-## Get All Data with Timespent for each vehicle
+## Get All Data with Timespent for each vehicle in One Parking Lot
 
 ### Request
 
-`GET /{parkingLotId}/all/time_spent`
+`GET /parking/{parkingLotId}/all/time_spent`
 
 It also accepts page and size
 
@@ -380,25 +380,33 @@ It also accepts page and size
 
 
 ### Response
-Display all parking in json format
+Display all vehicle parked in certain parking lot in json format
 
-    {
-    "content": [
-        {
-            "id": "40288182800cc09701800cc4dc8d0000",
-            "ownerId": "40288182800c21bf01800c28452c0000",
-            "name": "Parkir Jaya Abadi",
-            "address": "Senayan",
-            "size": 20.25,
-            "capacity": 100,
-            "category": "Car"
-        }
-    ],
-    "pageNumber": 0,
-    "pageSize": 5,
-    "totalPages": 1,
-    "totalElement": 1
-    }
+    {"content":
+    [{"content":{"id":"40288182800d59aa01800d5a7e130000","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"F 3212 JL","type":"Bike","entrance":"2022-04-09T08:04:35.945+00:00"},
+    "timeSpent":"1 Jam, 32 Menit, 41 Detik."},
+    {"content":{"id":"40288182800d59aa01800d7803b50001","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 1102 JL","type":"Bike","entrance":"2022-04-09T08:36:50.739+00:00"},
+    "timeSpent":"1 Jam, 0 Menit, 26 Detik."},
+    {"content":{"id":"40288182800d59aa01800d78238e0002","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 6532 JXL","type":"Bike","entrance":"2022-04-09T08:36:58.893+00:00"},
+    "timeSpent":"1 Jam, 0 Menit, 18 Detik."}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
+
+## Get Bill Detail For Vehicle
+
+### Request
+
+`GET /parking/{parkingId}/bill`
+
+### Response
+Display information of vehicle and bill in json format
+
+    {"content":
+    [{"content":{"id":"40288182800d59aa01800d5a7e130000","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"F 3212 JL","type":"Bike","entrance":"2022-04-09T08:04:35.945+00:00"},
+    "timeSpent":"1 Jam, 32 Menit, 41 Detik."},
+    {"content":{"id":"40288182800d59aa01800d7803b50001","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 1102 JL","type":"Bike","entrance":"2022-04-09T08:36:50.739+00:00"},
+    "timeSpent":"1 Jam, 0 Menit, 26 Detik."},
+    {"content":{"id":"40288182800d59aa01800d78238e0002","parkingLotId":"40288182800cc09701800cc615cf0001","licensePlate":"B 6532 JXL","type":"Bike","entrance":"2022-04-09T08:36:58.893+00:00"},
+    "timeSpent":"1 Jam, 0 Menit, 18 Detik."}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":3}
+
 
 ## Register New Parking
 
@@ -429,7 +437,7 @@ RequestBody as JSON:
     "entrance": "2022-04-09T08:04:35.945+00:00"
     }
 
-## Delete Parking Lot Data
+## Delete Parking Data
 
 ### Request
 

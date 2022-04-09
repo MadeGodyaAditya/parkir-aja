@@ -1,11 +1,14 @@
 package com.mandiri.service;
 
+import com.mandiri.dto.BillContent;
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.TimeSpentContent;
+import com.mandiri.entity.Fee;
 import com.mandiri.entity.Parking;
 import com.mandiri.entity.ParkingLot;
 import com.mandiri.library.CustomException;
 import com.mandiri.repository.ParkingRepository;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -70,19 +73,33 @@ public class ParkingService implements CreateReadService<Parking, String>, Delet
 
         List<TimeSpentContent<Parking>> timeSpentContentList = new ArrayList<>();
 
+        addToTimeSpentContentList(parkingList, timeSpentContentList);
+
+        Page<TimeSpentContent<Parking>> pageData = new PageImpl<TimeSpentContent<Parking>>(timeSpentContentList, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()), timeSpentContentList.size());
+        return new CustomPage<TimeSpentContent<Parking>>(pageData);
+
+    }
+    private void addToTimeSpentContentList(List<Parking> parkingList, List<TimeSpentContent<Parking>> timeSpentContentList) {
         parkingList.forEach((n)->{
             long diff = System.currentTimeMillis() - (n.getEntrance().getTime());
-            long hours = TimeUnit.MILLISECONDS.toHours(diff);
+            long hours = (long) Math.floor(TimeUnit.MILLISECONDS.toHours(diff));
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff) % 60;
             long seconds = TimeUnit.MILLISECONDS.toSeconds(diff) % 60;
 
             TimeSpentContent<Parking> timeSpentContent = new TimeSpentContent<>(n, hours + " Jam, " + minutes + " Menit, " + seconds + " Detik.");
             timeSpentContentList.add(timeSpentContent);
         });
+    }
 
-        Page<TimeSpentContent<Parking>> pageData = new PageImpl<TimeSpentContent<Parking>>(timeSpentContentList, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()), timeSpentContentList.size());
-        return new CustomPage<TimeSpentContent<Parking>>(pageData);
+    public BillContent<Parking> getBill(String id){
+        checkId(id);
+        Parking parking = findById(id);
+        Fee fee = feeService.findByParkingLotIdAndCategory(parking.getParkingLotId(), parking.getType());
+        long diff = System.currentTimeMillis() - (parking.getEntrance().getTime());
 
+        long hours = (long) Math.ceil(diff / (60.0*60.0*1000.0));
+        Integer totalFee = Math.toIntExact(hours * fee.getFee());
+        return new BillContent<Parking>(parking, new Timestamp(System.currentTimeMillis()), totalFee);
     }
 
     @Override
