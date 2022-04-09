@@ -7,12 +7,12 @@ API.
 ## Install
 
     1. git clone to local repository
-    2. create table using spring.jpa.hibernate.ddl-auto=update in application.properties
-    3. match @id sequence in package com.mandiri.entity with sequence in table
+    2. create matching database name with database name in application.properties
+    3. create table using spring.jpa.hibernate.ddl-auto=update in application.properties
 
 ## Run the app
 
-    run in port 8080
+    run in any port (default is 8080)
 
 ## Run the tests
 
