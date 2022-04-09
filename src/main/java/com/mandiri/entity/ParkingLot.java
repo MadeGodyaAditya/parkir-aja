@@ -32,6 +32,9 @@ public class ParkingLot {
     @NotNull
     private Integer capacity;
 
+    @NotNull
+    private String category;
+
     public ParkingLot() {
     }
 
@@ -57,5 +60,9 @@ public class ParkingLot {
 
     public Integer getCapacity() {
         return capacity;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

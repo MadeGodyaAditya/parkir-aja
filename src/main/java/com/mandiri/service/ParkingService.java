@@ -15,7 +15,7 @@ public class ParkingService implements CreateReadService<Parking, String>, Updat
     @Override
     public void checkId(String s) {
         if(!parkingRepository.existsById(s)) {
-            CustomException.ResponseThrow(this.getClass().getSimpleName(), s);
+            CustomException.throwNotFound(this.getClass().getSimpleName(), s);
         }
     }
 

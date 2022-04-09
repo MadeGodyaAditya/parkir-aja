@@ -38,12 +38,15 @@ public class ParkingLotSpecification implements Specification<ParkingLot>, Predi
         if (parkingLotSearchForm.getCapacityTopLimit()!=null){
             predicates.add(lessThanEqualIntPredicate(criteriaBuilder, root, "capacity", parkingLotSearchForm.getCapacityTopLimit()));
         }
-        if (parkingLotSearchForm.getFeeBottomLimit()!=null){
-            predicates.add(greaterThanEqualIntPredicate(criteriaBuilder, root, "size", parkingLotSearchForm.getFeeBottomLimit()));
+        if (parkingLotSearchForm.getCategory()!=null){
+            predicates.add(containsPredicate(criteriaBuilder, root, "category", parkingLotSearchForm.getAddress()));
         }
-        if (parkingLotSearchForm.getFeeTopLimit()!=null){
-            predicates.add(lessThanEqualIntPredicate(criteriaBuilder, root, "size", parkingLotSearchForm.getFeeTopLimit()));
-        }
+//        if (parkingLotSearchForm.getFeeBottomLimit()!=null){
+//            predicates.add(greaterThanEqualIntPredicate(criteriaBuilder, root, "size", parkingLotSearchForm.getFeeBottomLimit()));
+//        }
+//        if (parkingLotSearchForm.getFeeTopLimit()!=null){
+//            predicates.add(lessThanEqualIntPredicate(criteriaBuilder, root, "size", parkingLotSearchForm.getFeeTopLimit()));
+//        }
 
         Predicate[] arrayPredicate = predicates.toArray(new Predicate[predicates.size()]);
         return criteriaBuilder.and(arrayPredicate);

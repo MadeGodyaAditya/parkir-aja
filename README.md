@@ -23,6 +23,22 @@ API.
 
 The REST API to the parkiraja app is described below.
 
+## 0 . FIND BY ID
+
+parkiraja support find By ID in all of URI, to find the data using ID:
+
+`GET /any_api/{id}`
+
+for example:
+
+    /parking_owner/xf0929299292
+
+or
+
+    /parking_lot/29839120388288
+
+etc
+
 ## 1. Parking Owner
 ## Get all parking owner
 
@@ -198,7 +214,8 @@ RequestBody as JSON:
     "name":"Parkir Kosong Dikit",
     "address":"Sudirman",
     "size":"15.25",
-    "capacity":"50"
+    "capacity":"50",
+    "category":"Car"
     }
 
 ### Response
@@ -214,7 +231,8 @@ RequestBody as JSON:
     "name": "Parkir Kosong Dikit",
     "address": "Sudirman",
     "size": 15.25,
-    "capacity": 50
+    "capacity": 50,
+    "category":"Car"
     }
 
 ## Change Parking Lot Data
@@ -229,7 +247,8 @@ RequestBody as JSON:
     "name":"Update parkiran",
     "address":"Sudirman",
     "size":"10.00",
-    "capacity":"55"
+    "capacity":"55",
+    "category":"Car"
     }
 
 ### Response
@@ -245,7 +264,8 @@ RequestBody as JSON:
     "name":"Update parkiran",
     "address":"Sudirman",
     "size":"10.00",
-    "capacity":"55"
+    "capacity":"55",
+    "category":"Car"
     }
 
 ## Delete Parking Lot Data
@@ -261,15 +281,15 @@ RequestBody as JSON:
     Status: 200 OK
     Connection: close
 
-## 3. Customer
-## Get all Customer
+## 3. Fee
+## Get Fee Data
 
 ### Request
 
-`GET /customer`
+`GET /fee/`
 
 ### Response
-Display all customer in json format
+Display fee by ID in json format
 
     {"content":[{"id":"8a6333877ffe5986017ffe599a480000","fullName":"I Made Godya Aditya","username":"godyaaditya123","birthDate":"1996-04-11T17:00:00.000+00:00","phoneNumber":"081387308472","email":"godyaaditya@gmail.com","gender":"M"},
     {"id":"402881837ffed5f8017ffed622c00000","fullName":"Bambang Sibambang","username":"bambang_ok","birthDate":"1987-01-16T17:00:00.000+00:00","phoneNumber":"0812920219123","email":"sibambangbambang@gmail.com","gender":"M"},
@@ -278,60 +298,18 @@ Display all customer in json format
     {"id":"402881837ffeeb98017ffeee53900002","fullName":"Rizki Utami","username":"rbu_123_ok","birthDate":"1987-10-22T17:00:00.000+00:00","phoneNumber":"088710239113","email":"rbu_kesekretarian_ddp@gmail.com","gender":"F"}],
     "pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":5}
 
-## Get Customer using Parameter
-Customer accept 7 search parameter both individually or collectively used in a search
-
-    ?fullName=xxxx
-    ?userName=xxxx
-    ?birthDateStart=1800-01-01
-    ?birthDateEnd=2022-12-12
-    ?phoneNumber=0812
-    ?email=xxxxx
-    ?gender=M/F
-
-It also accepts page and size
-
-    ?page=1&size=5
+## Register New Fee
 
 ### Request
 
-`localhost:8080/customer?fullName=made&gender=M`
-
-### Response
-Display all customer in json format
-
-    {
-    "content": [
-        {
-            "id": "402881837ffa1e97017ffa203d140001",
-            "productName": "Sari Roti",
-            "description": "Roti",
-            "price": 3000,
-            "stock": 16,
-            "storeId": "8a63394f7ff7de6b017ff7df8fcb0001"
-        }
-    ],
-    "pageNumber": 0,
-    "pageSize": 5,
-    "totalPages": 1,
-    "totalElement": 1
-    }
-
-## Register New Customer
-
-### Request
-
-`POST /customer`
+`POST /fee`
 
 RequestBody as JSON:
 
     {
-    "fullName":"Bambang Sibambang",
-    "username":"bambang_ok",
-    "birthDate":"1987-01-17",
-    "phoneNumber": "0812920219123",
-    "email":"sibambangbambang@gmail.com",
-    "gender":"M"
+    "parkingLotId":"40288182800cc09701800cc4dc8d0000",
+    "category":"Car",
+    "fee":"5000"
     }
 
 ### Response
@@ -342,29 +320,23 @@ RequestBody as JSON:
     Content-Type: application/json
 
     {
-    "id": "402881837ffed5f8017ffed622c00000",
-    "fullName": "Bambang Sibambang",
-    "username": "bambang_ok",
-    "birthDate": "1987-01-17T00:00:00.000+00:00",
-    "phoneNumber": "0812920219123",
-    "email": "sibambangbambang@gmail.com",
-    "gender": "M"
+    "id": "40288182800d03f901800d040d020000",
+    "parkingLotId": "40288182800cc09701800cc4dc8d0000",
+    "category": "Car",
+    "fee": 5000
     }
 
 ## Change Customer Data
 
 ### Request
 
-`PUT /customer`
+`PUT /fee`
 
     {
-    "id": "402881837ffed5f8017ffed622c00000",
-    "fullName": "Bambang Sibambang",
-    "username": "bambang_ok",
-    "birthDate": "1987-01-17T00:00:00.000+00:00",
-    "phoneNumber": "0812920219123",
-    "email": "sibambangbambang@gmail.com",
-    "gender": "M"
+    "id": "40288182800d03f901800d0670750003",
+    "parkingLotId": "40288182800cc09701800cc68db60002",
+    "category": "Car",
+    "fee": 5500
     }
 
 ### Response
@@ -375,20 +347,17 @@ RequestBody as JSON:
     Content-Type: application/json
 
     {
-    "id": "402881837ffed5f8017ffed622c00000",
-    "fullName": "Bambang Sibambang",
-    "username": "bambang_ok",
-    "birthDate": "1987-01-17T00:00:00.000+00:00",
-    "phoneNumber": "0812920219123",
-    "email": "sibambangbambang@gmail.com",
-    "gender": "M"
+    "id": "40288182800d03f901800d0670750003",
+    "parkingLotId": "40288182800cc09701800cc68db60002",
+    "category": "Car",
+    "fee": 5500
     }
 
 ## Delete Customer Data
 
 ### Request
 
-`DELETE /customer?id=402881837ffed5f8017ffed622c00000`
+`DELETE /fee?id=40288182800d03f901800d0670750003`
 
 
 ### Response
@@ -401,7 +370,7 @@ RequestBody as JSON:
 
 ### Request
 
-`PUT /store`
+`PUT /parking_lot`
 
     {
     "id":"123456"

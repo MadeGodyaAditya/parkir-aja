@@ -5,7 +5,6 @@ import com.mandiri.library.CustomException;
 import com.mandiri.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 @Service
 public class ReportService implements CreateReadService<Report, String>, UpdateService<Report>, DeleteService<String> {
@@ -16,7 +15,7 @@ public class ReportService implements CreateReadService<Report, String>, UpdateS
     @Override
     public void checkId(String s) {
         if(!reportRepository.existsById(s)) {
-            CustomException.ResponseThrow(this.getClass().getSimpleName(), s);
+            CustomException.throwNotFound(this.getClass().getSimpleName(), s);
         }
     }
 

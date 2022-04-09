@@ -23,7 +23,7 @@ public class ParkingLotService implements CreateReadService<ParkingLot, String>,
     @Override
     public void checkId(String s){
         if(!parkingLotRepository.existsById(s)) {
-            CustomException.ResponseThrow(this.getClass().getSimpleName(), s);
+            CustomException.throwNotFound(this.getClass().getSimpleName(), s);
         }
     }
 
@@ -45,6 +45,10 @@ public class ParkingLotService implements CreateReadService<ParkingLot, String>,
         ParkingLotSpecification parkingLotSpecification = new ParkingLotSpecification(parkingLotSearchForm);
         Page<ParkingLot> pageData = parkingLotRepository.findAll(parkingLotSpecification, pageable);
         return new CustomPage<ParkingLot>(pageData);
+    }
+
+    public ParkingLot getFilled(String id){
+        return null;
     }
 
     @Override

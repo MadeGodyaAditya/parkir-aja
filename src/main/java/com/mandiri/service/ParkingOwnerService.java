@@ -2,7 +2,6 @@ package com.mandiri.service;
 
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.ParkingOwnerSearchForm;
-import com.mandiri.entity.ParkingLot;
 import com.mandiri.entity.ParkingOwner;
 import com.mandiri.library.CustomException;
 import com.mandiri.repository.ParkingOwnerRepository;
@@ -20,7 +19,7 @@ public class ParkingOwnerService implements CreateReadService<ParkingOwner, Stri
     @Override
     public void checkId(String s){
         if(!parkingOwnerRepository.existsById(s)) {
-            CustomException.ResponseThrow(this.getClass().getSimpleName(), s);
+            CustomException.throwNotFound(this.getClass().getSimpleName(), s);
         }
     }
 
