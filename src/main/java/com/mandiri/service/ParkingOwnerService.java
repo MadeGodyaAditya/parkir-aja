@@ -1,10 +1,15 @@
 package com.mandiri.service;
 
+import com.mandiri.dto.CustomPage;
+import com.mandiri.dto.ParkingOwnerSearchForm;
 import com.mandiri.entity.ParkingLot;
 import com.mandiri.entity.ParkingOwner;
 import com.mandiri.library.CustomException;
 import com.mandiri.repository.ParkingOwnerRepository;
+import com.mandiri.specification.ParkingOwnerSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +34,12 @@ public class ParkingOwnerService implements CreateReadService<ParkingOwner, Stri
         checkId(s);
 
         return parkingOwnerRepository.findById(s).get();
+    }
+
+    public CustomPage<ParkingOwner> find(ParkingOwnerSearchForm parkingOwnerSearchForm, Pageable pageable){
+        ParkingOwnerSpecification parkingOwnerSpecification = new ParkingOwnerSpecification(parkingOwnerSearchForm);
+        Page<ParkingOwner> pageData = parkingOwnerRepository.findAll(parkingOwnerSpecification, pageable);
+        return new CustomPage<ParkingOwner>(pageData);
     }
 
     @Override

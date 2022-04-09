@@ -28,42 +28,35 @@ The REST API to the parkiraja app is described below.
 
 ### Request
 
-`GET /store`
+`GET /parking_owner`
 
 ### Response
-Display all store in json format
+Display all Parking Owner in json format
 
-    [{"id":00xxxfdkao29293,"storeName":"BukaKeplak","storeAddress":"Jakarta Utara","phoneNumber":"08123456789","siupNumber":"123/JU/2022","npwp":"23218982312"},
-    {"id":8080123ifiosakx0,"storeName":"JualJual","storeAddress":"Jakarta Selatan","phoneNumber":"08123042189","siupNumber":"110/JS/1980","npwp":"23212039112"},
-    {"id":2138293xxxi329,"storeName":"Thopee","storeAddress":"Cibinong","phoneNumber":"0811230210189","siupNumber":"820/CB/1870","npwp":"2321312112"},
-    {"id":34324xxawdjo21,"storeName":"TokoPekora","storeAddress":"Depok Baru","phoneNumber":"0811203990189","siupNumber":"167/DB/1985","npwp":"239823112"}]
+    [{"id":"40288182800c21bf01800c28452c0000","idCard":"3201399312321","name":"Made G","address":"Cibinong Bogor","phoneNumber":"08239481984"},
+    {"id":"40288182800c21bf01800c293d220001","idCard":"320182139115","name":"Bambang S","address":"Depok","phoneNumber":"0219312321"}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":2}
 
-## Get Store using Parameter
-Store accept 3 search parameter both individually or collectivelly used in a search
+## Get Parking Owner using Parameter
+Store accept 4 search parameter both individually or collectivelly used in a search
     
-    ?storeName=xxxx
-    ?storeAddress=xxxx
+    ?idCard=xxxx
+    ?name=xxxx
+    ?address=xxxx
     ?phoneNumber=xxxx
-
-or use keyWord for random search in 3 column
-
-    ?keyWord=xxxx
 
 It also accepts page and size
 
     ?page=1&size=5
 
-storeName and Address works as 'contains' %{x}%,
-while phone number work as 'start with' {x}%.
 
 ### Request
 
-`GET /store?storeAddress=Cib`
+`GET /parking_owner?name=ma&address=cib&phoneNumber=08`
 
 ### Response
 Display all store in json format
 
-    [{"id":239048wjdsdi20,"storeName":"Thopee","storeAddress":"Cibinong","phoneNumber":"0811230210189","siupNumber":"820/CB/1870","npwp":"2321312112"}]
+    {"content":[{"id":"40288182800c21bf01800c28452c0000","idCard":"3201399312321","name":"Made G","address":"Cibinong Bogor","phoneNumber":"08239481984"}],"pageNumber":0,"pageSize":5,"totalPages":1,"totalElement":1}
 
 ## Register Parking Owner
 
