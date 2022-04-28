@@ -29,6 +29,7 @@ public class ParkingController implements CreateReadController<Parking, String>{
         return parkingService.findById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/{parkingLotId}/all/time_spent")
     public CustomPage<TimeSpentContent<Parking>> getTimeSpent(
             @PathVariable String parkingLotId,
@@ -38,6 +39,7 @@ public class ParkingController implements CreateReadController<Parking, String>{
         return parkingService.getTimeSpent(parkingLotId, pageable);
     }
 
+    @CrossOrigin
     @GetMapping("/{id}/bill")
     public BillContent<Parking> getBill(@PathVariable String id){
         return parkingService.getBill(id);

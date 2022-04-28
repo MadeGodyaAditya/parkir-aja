@@ -3,8 +3,7 @@ package com.mandiri.controller;
 import com.mandiri.entity.Fee;
 import com.mandiri.service.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -18,6 +17,7 @@ public class FeeController implements CreateReadController<Fee,String>, UpdateCo
         return feeService.register(fee);
     }
 
+    @CrossOrigin
     @Override
     public Fee findById(String s) {
         return feeService.findById(s);

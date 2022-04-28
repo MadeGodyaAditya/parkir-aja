@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -28,11 +25,13 @@ public class ParkingOwnerController implements CreateReadController<ParkingOwner
         return parkingOwnerService.register(parkingOwner);
     }
 
+    @CrossOrigin
     @Override
     public ParkingOwner findById(String id) {
         return parkingOwnerService.findById(id);
     }
 
+    @CrossOrigin
     @GetMapping
     public CustomPage<ParkingOwner> searchByParam(
             @RequestParam(defaultValue = "0") Integer page,
