@@ -19,17 +19,31 @@ public class ParkingController implements CreateReadController<Parking, String>{
     @Autowired
     ParkingService parkingService;
 
+    
     @Override
     public Parking register(Parking parking) {
         return parkingService.register(parking);
     }
 
+    
     @Override
     public Parking findById(String id) {
         return parkingService.findById(id);
     }
 
-    @CrossOrigin
+    
+    @GetMapping("/plate")
+    public Parking findByLicensePlate(@RequestParam String licensePlate){
+        return parkingService.findByLicensePlate(licensePlate);
+    }
+
+    
+    @GetMapping("{vehicleType}/count")
+    public Integer countVehicle (@PathVariable String vehicleType){
+        return parkingService.countVehicle(vehicleType);
+    }
+
+    
     @GetMapping("/{parkingLotId}/all/time_spent")
     public CustomPage<TimeSpentContent<Parking>> getTimeSpent(
             @PathVariable String parkingLotId,
@@ -39,12 +53,13 @@ public class ParkingController implements CreateReadController<Parking, String>{
         return parkingService.getTimeSpent(parkingLotId, pageable);
     }
 
-    @CrossOrigin
+    
     @GetMapping("/{id}/bill")
     public BillContent<Parking> getBill(@PathVariable String id){
         return parkingService.getBill(id);
     }
 
+    
     @DeleteMapping()
     public Report exitParking(@RequestParam String id){
         return parkingService.exitParking(id);

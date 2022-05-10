@@ -12,6 +12,7 @@ public class FeeController implements CreateReadController<Fee,String>, UpdateCo
     @Autowired
     FeeService feeService;
 
+    @CrossOrigin
     @Override
     public Fee register(Fee fee) {
         return feeService.register(fee);
@@ -23,11 +24,13 @@ public class FeeController implements CreateReadController<Fee,String>, UpdateCo
         return feeService.findById(s);
     }
 
+    @CrossOrigin
     @Override
     public Fee update(Fee fee) {
         return feeService.update(fee);
     }
 
+    @CrossOrigin
     @Override
     public void delete(String s) {
         feeService.delete(s);

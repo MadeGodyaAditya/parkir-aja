@@ -20,18 +20,19 @@ public class ParkingOwnerController implements CreateReadController<ParkingOwner
     ParkingOwnerService parkingOwnerService;
 
 
+    
     @Override
     public ParkingOwner register(ParkingOwner parkingOwner) {
         return parkingOwnerService.register(parkingOwner);
     }
 
-    @CrossOrigin
+    
     @Override
     public ParkingOwner findById(String id) {
         return parkingOwnerService.findById(id);
     }
 
-    @CrossOrigin
+    
     @GetMapping
     public CustomPage<ParkingOwner> searchByParam(
             @RequestParam(defaultValue = "0") Integer page,
@@ -45,11 +46,13 @@ public class ParkingOwnerController implements CreateReadController<ParkingOwner
 
     }
 
+    
     @Override
     public ParkingOwner update(ParkingOwner parkingOwner) {
         return parkingOwnerService.update(parkingOwner);
     }
 
+    
     @Override
     public void delete(String id) {
         parkingOwnerService.delete(id);

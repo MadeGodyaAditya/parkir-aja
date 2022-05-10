@@ -82,8 +82,21 @@ public class ParkingService implements CreateReadService<Parking, String> {
         return parkingRepository.findById(s).get();
     }
 
+    public Parking findByLicensePlate(String s){
+
+        if(parkingRepository.findByLicensePlate(s) == null) {
+            CustomException.throwNotFound(this.getClass().getSimpleName(), s);
+        }
+
+        return parkingRepository.findByLicensePlate(s);
+    }
+
     public List<Parking> findByParkingLot(String s){
         return parkingRepository.findByParkingLotId(s);
+    }
+
+    public Integer countVehicle(String s){
+        return parkingRepository.countByType(s);
     }
 
     public CustomPage<TimeSpentContent<Parking>> getTimeSpent(String id, Pageable pageable){

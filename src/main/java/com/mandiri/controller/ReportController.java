@@ -14,7 +14,7 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @CrossOrigin
+    
     @GetMapping
     public CustomPage<Report> find(
             @RequestParam(defaultValue = "0") Integer page,

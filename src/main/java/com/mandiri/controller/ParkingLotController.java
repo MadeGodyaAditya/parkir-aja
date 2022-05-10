@@ -19,18 +19,19 @@ public class ParkingLotController implements CreateReadController<ParkingLot, St
     @Autowired
     ParkingLotParkingCrossService parkingLotParkingCrossService;
 
+    
     @Override
     public ParkingLot register(ParkingLot parkingLot) {
         return parkingLotService.register(parkingLot);
     }
 
-    @CrossOrigin
+    
     @Override
     public ParkingLot findById(String id) {
         return parkingLotService.findById(id);
     }
 
-    @CrossOrigin
+    
     @GetMapping
     public CustomPage<ParkingLot> searchByParam(
             @RequestParam(defaultValue = "0") Integer page,
@@ -49,17 +50,19 @@ public class ParkingLotController implements CreateReadController<ParkingLot, St
 
     }
 
-    @CrossOrigin
+    
     @GetMapping("/{id}/vehicle_list")
     public ParkingLotWithVehicle getParkingLotVehicle(@PathVariable String id) {
         return  parkingLotParkingCrossService.parkingLotWithVehicle(id);
     }
 
+    
     @Override
     public ParkingLot update(ParkingLot parkingLot) {
         return parkingLotService.update(parkingLot);
     }
 
+    
     @Override
     public void delete(String id) {
         parkingLotService.delete(id);

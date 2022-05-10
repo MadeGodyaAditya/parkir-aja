@@ -10,4 +10,5 @@ import java.util.List;
 public interface ParkingRepository extends JpaRepository<Parking, String>{
     List<Parking> findByParkingLotId(String parkingLotId);
     Parking findByLicensePlate(String licensePlate);
+    Integer countByType(String s);
 }
